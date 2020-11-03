@@ -1,0 +1,37 @@
+{
+  "name": "my-app-single",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib-commonjs/index.js",
+  "module": "lib/index.js",
+  "scripts": {
+    "build": "just-scripts build",
+    "just": "just-scripts",
+    "start": "set PORT=3129 &&  just-scripts start",
+    "test": "just-scripts test",
+    "change": "npx beachball change",
+    "gen": "npx plop"
+  },
+  "dependencies": {
+    "@handsontable/react": "^3.0.0",
+    "@pnp/common": "^1.3.5",
+    "@pnp/graph": "^1.3.5",
+    "@types/react-router": "^5.1.1",
+    "@types/react-router-dom": "^5.1.0",
+    "@uifabric/react-hooks": "^7.0.1",
+    "axios": "^0.19.0",
+    "handsontable": "^7.1.1",
+    "lodash.omit": "^4.5.0",
+    "msal": "^1.1.3",
+    "office-ui-fabric-react": "^7.25.0",
+    "react": "^16.8.6",
+    "react-aad-msal": "^1.1.2",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2"
+  },
+  "devDependencies": {
+    "just-scripts": "^0.27.0",
+    "just-stack-react": "^1.0.0"
+  }
+}

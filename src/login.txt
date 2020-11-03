@@ -1,0 +1,21 @@
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script><script type="text/javascript">
+    jQuery(document).ready(function () {
+        debugger;
+        var projId = getParameterByName('ProjUid', document.location.href);
+        if (!(projId))
+            projId = getParameterByName('projuid', document.location.href);
+        document.getElementById("iframe1").setAttribute("src", 'https://pprmtest.azurewebsites.net/?ProjUid=' + projId);
+      
+    });
+    
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
+</script> ​ 
+<iframe id="iframe1" width="800px" height="300px" src="https://pprmtest.azurewebsites.net/?ProjUid=b1e43783-ca59-e911-836f-68f7281834c2"></iframe>​<br/>​​<br/>​<br/>​​​​<br/>​<br/>​​​<br/>​​​<br/>
