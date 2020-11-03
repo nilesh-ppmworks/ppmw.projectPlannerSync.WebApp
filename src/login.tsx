@@ -7,7 +7,7 @@ import { Button, PrimaryButton } from "office-ui-fabric-react";
 //import { AppState } from "./appState";
 import axios from "axios";
 //const baseApiUrl = AppState.globals.apiBaseUrl;
-//const apiUrl = baseApiUrl + "users";
+const apiUrl = "https://ppmwprojplansync.azurewebsites.net/api/SaveTokenFn?FuncName=GetLogs&code=2BCbhDUhdyoOvDDErQcTCmKGhDJzUhYcVYjNaZS3jFvMA3E39om/Rg==";
 //const mdt_logo = require("./components/assets/mdt_logo.png");
 
 const config = {
@@ -50,8 +50,23 @@ export class Login extends Component {
         var user = userAgentApplication.getAccount();
         debugger;
         if (user) {
-          
+          window.location.href = "/#/logdetails";
           /*
+          axios
+      .post(apiUrl,
+         "{\"SyncId\":\"9b51f53e-0412-4200-90ff-6ee27b75c84c\",\"Page\":1,\"Size\":100}",
+         { headers: {"Authorization" : localStorage.getItem('id_token')} })
+      .then(res => {
+        debugger;
+        console.log(res);
+        console.log(res.data);
+        
+        },
+        (error) => {
+          debugger;
+          console.log(error);
+        });
+          
           localStorage.setItem("role", "user");
           console.log("signed in sucessfully");
           localStorage.setItem("id_token", id_token.idToken.rawIdToken);
@@ -62,6 +77,7 @@ export class Login extends Component {
           //AppState.globals.userUniqueId = id_token.uniqueId
           */
           // get an access token
+          /*
           userAgentApplication.acquireTokenSilent(loginRequest).then(
             function(access_token) {
               console.log("Success acquiring access token");
@@ -94,7 +110,7 @@ export class Login extends Component {
               }
             }
           );
-
+*/
          // window.location.href = "/#/forecastbyproject";
         } else {
           console.log("signed in failure");
