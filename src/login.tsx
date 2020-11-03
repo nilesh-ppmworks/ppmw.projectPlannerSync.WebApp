@@ -150,7 +150,7 @@ export class Login extends Component {
         </div>
         <div>
           <span style={{ color: "white", fontSize: "28px" }}>
-            New Product Sales Forecasting
+            Project Planner Sync
           </span>
         </div>
         <div>
