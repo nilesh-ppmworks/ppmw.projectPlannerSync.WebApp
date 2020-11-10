@@ -188,7 +188,7 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
   componentDidMount() {
    // this.getSyncs();
    var syncid = localStorage.getItem("syncid");
-    this._getData(syncid!); //"9B51F53E-0412-4200-90FF-6EE27B75C84C");
+    this._getData("9B51F53E-0412-4200-90FF-6EE27B75C84C");
   }
   
   private _onClick() {
