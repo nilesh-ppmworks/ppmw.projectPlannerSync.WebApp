@@ -40,26 +40,153 @@ export const Users: React.FunctionComponent = () => {
   return (
     <div style={{padding:"20px 20px",height:"600px", width:"1050px", backgroundColor:"rgb(237, 235, 233)"}}>
           
-      
+      <UserDetails />
     </div>
   );
 };
-
-interface ILogDetailsListItem {    
-  SyncId: string;
-  CorrelationId: string;
-  JobType: string;
-  PlanId:string;
-  ProjectId:string;
-  Status:number;
-  LogLevel:number;
-  Message: string;
-  Timestamp:string;
+interface IUserDetailsState {
+  isLoading:boolean;
 }
 
-interface ILogDetailsListState {
-  items: ILogDetailsListItem[];
-  isLoading:boolean;
+class UserDetails extends React.Component<{}, IUserDetailsState> {
+  //private _allItems: IRegionListItem[];
+  private _columns: IColumn[];
+
+  constructor(props: {}) {
+    super(props);
+
+    this._columns = [
+      {
+        key: "SyncId",
+        name: "SyncId",
+        fieldName: "SyncId",
+        minWidth: 100,
+        maxWidth: 150,
+        isResizable: true,
+      },
+      {
+        key: "CorrelationId",
+        name: "CorrelationId",
+        fieldName: "CorrelationId",
+        minWidth: 100,
+        maxWidth: 150,
+        isResizable: true,
+      },
+      {
+        key: "JobType",
+        name: "JobType",
+        fieldName: "JobType",
+        minWidth: 60,
+        maxWidth: 60,
+        isResizable: true,
+      },
+      {
+        key: "PlanId",
+        name: "PlanId",
+        fieldName: "PlanId",
+        minWidth: 50,
+        maxWidth: 50,
+        isResizable: true,
+      },
+      {
+        key: "ProjectId",
+        name: "ProjectId",
+        fieldName: "ProjectId",
+        minWidth: 100,
+        maxWidth: 150,
+        isResizable: true,
+      },
+      {
+        key: "Status",
+        name: "Status",
+        fieldName: "Status",
+        minWidth: 40,
+        maxWidth: 40,
+        isResizable: true,
+      },
+      {
+        key: "LogLevel",
+        name: "LogLevel",
+        fieldName: "LogLevel",
+        minWidth: 60,
+        maxWidth: 60,
+        isResizable: true,
+      },
+      {
+        key: "Message",
+        name: "Message",
+        fieldName: "Message",
+        minWidth: 100,
+        maxWidth: 150,
+        isResizable: true,
+      },
+      {
+        key: "Timestamp",
+        name: "Timestamp",
+        fieldName: "Timestamp",
+        minWidth: 100,
+        maxWidth: 100,
+        isResizable: true,
+      },
+    ];
+
+    this.state = {     
+      isLoading: false,
+    };
+  }
+
+  public render(): JSX.Element {
+    const { isLoading } = this.state;
+
+    return (
+      <Fabric style={{ maxHeight: "400px" }}>
+        {isLoading && (
+          <Spinner
+            size={SpinnerSize.large}
+            className="spinnerLoaderClass"
+          ></Spinner>
+        )}       
+        <div>
+        
+          </div>
+        
+      </Fabric>
+    );
+  }
+
+  componentDidMount() {
+    var syncId = localStorage.getItem("syncid");
+    if (syncId) {
+      //
+    } else { 
+      alert('Please select a sync account from Settings');
+      window.location.href = "/#/settings";
+    }
+  }
+ 
+
+  private _onClick() {
+    this.setState({ isLoading: true });
+    axios
+      .post(
+        apiUrl,
+        '{"syncId":"9b51f53e-0412-4200-90ff-6ee27b75c84c"}'
+      )
+      .then(
+        (res) => {
+          debugger;
+          this.setState({
+           //Add message
+          });
+          
+          console.log(res);
+        },
+        (error) => {
+          debugger;
+          console.log(error);
+        }
+      );
+  }
 }
 
 

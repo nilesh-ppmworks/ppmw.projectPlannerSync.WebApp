@@ -50,7 +50,8 @@ export class Login extends Component {
         var user = userAgentApplication.getAccount();
         debugger;
         if (user) {
-          window.location.href = "/#/logdetails";
+          localStorage.setItem("userid", user.accountIdentifier);
+          window.location.href = "/#/settings";
           /*
           axios
       .post(apiUrl,

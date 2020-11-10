@@ -20,7 +20,9 @@ import {
   Spinner,
   Toggle,
   Checkbox,
-  ComboBox
+  ComboBox,
+  Dropdown,
+  IDropdownOption
 } from "office-ui-fabric-react";
 import axios from "axios";
 import {LeftNav} from "./navigation";
@@ -35,6 +37,9 @@ const exampleChildClass = mergeStyles({
   fontWeight: "bold",
   color: "rgb(100,100,100)"
 });
+const SyncOptions:IDropdownOption[] = [
+  { key: '9B51F53E-0412-4200-90FF-6EE27B75C84C', text: 'Beta m365x569312' },
+];
 
 export const Settings: React.FunctionComponent = () => {
   return (
@@ -47,6 +52,8 @@ export const Settings: React.FunctionComponent = () => {
 
 
 interface ISettingsDetailsState {
+  selectedSync:string;
+  syncList:IDropdownOption[];
   isLoading:boolean;
 }
 
@@ -132,7 +139,9 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
       },
     ];
 
-    this.state = {     
+    this.state = {   
+      selectedSync:'',  
+      syncList:[],      
       isLoading: false,
     };
   }
@@ -140,6 +149,14 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
   public render(): JSX.Element {
     const { isLoading } = this.state;
 
+    const onChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption|undefined): void => {
+      debugger;  
+      if (item) {
+          //item.key;
+          localStorage.setItem("syncid", item.key.toString());
+          //localStorage.getItem("syncid")
+        }
+      };
     return (
       <Fabric style={{ maxHeight: "400px" }}>
         {isLoading && (
@@ -149,6 +166,19 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
           ></Spinner>
         )}       
         <div>
+        <Dropdown
+            id = "ddlSync"
+            //autoComplete="on"
+            //allowFreeform={true}
+            placeholder="Select Sync"
+            options={this.state.syncList}
+            style={{ width: 200 }}
+            onChange={onChange}
+            //text={this.state.newLastQuartersVal}
+            selectedKey={this.state.selectedSync}
+          />
+
+          <br></br>
         < DefaultButton  onClick={this._onClick.bind(this)}>
         Create Custom Fields
           </ DefaultButton>
@@ -159,9 +189,45 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
   }
 
   componentDidMount() {
-   // this.getSyncs();
-    //this._getData("9B51F53E-0412-4200-90FF-6EE27B75C84C");
+    debugger;
+    var user = localStorage.getItem("userid");
+    if (user) {
+      this._getData(user);
+    } else { 
+      window.location.href = "/#/login";
+    }
+
+
+    var syncId = localStorage.getItem("syncid");
+    if (syncId) {
+      this.setState({ selectedSync: "" });
+    } 
   }
+
+  private _getData(userId: string) {
+    this.setState({ isLoading: true });
+
+   axios.post("https://ppmwprojplansync.azurewebsites.net/api/SaveTokenFn?FuncName=GetSyncsByUserId&code=2BCbhDUhdyoOvDDErQcTCmKGhDJzUhYcVYjNaZS3jFvMA3E39om/Rg==", 
+    '{"userId":"' + userId + '"}').then(
+     (res) => {
+       debugger;
+       this.setState({ isLoading: false });
+       this.setState({
+         syncList: [],
+       });
+       this.setState({         
+        syncList: res.data,
+       });
+       console.log(res);
+       console.log(res.data);
+     },
+     (error) => {
+       this.setState({ isLoading: false });
+       debugger;
+       console.log(error);
+     }
+   );
+ }
  
 
   private _onClick() {

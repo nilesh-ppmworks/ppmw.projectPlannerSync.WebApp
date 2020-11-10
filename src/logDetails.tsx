@@ -20,7 +20,8 @@ import {
   Spinner,
   Toggle,
   Checkbox,
-  ComboBox
+  ComboBox,
+  IDropdownOption
 } from "office-ui-fabric-react";
 import axios from "axios";
 import {LeftNav} from "./navigation";
@@ -163,9 +164,6 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
           ></Spinner>
         )}
 
-        
-        
-        
         <DetailsList
           compact={true}
           items={items}
@@ -180,17 +178,30 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
           //onItemInvoked={this._onItemInvoked}
           isHeaderVisible={true}
         />
-        
       </Fabric>
     );
   }
 
   componentDidMount() {
-   // this.getSyncs();
-   var syncid = localStorage.getItem("syncid");
-    this._getData("9B51F53E-0412-4200-90FF-6EE27B75C84C");
-  }
   
+    var syncId = localStorage.getItem("syncid");
+    if (syncId) {
+      this._getData(syncId);
+    } else { 
+      alert('Please select a sync account from Settings');
+      window.location.href = "/#/settings";
+    }
+  }
+
+  private  handleChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption|undefined): void => {
+    debugger;  
+    if (item) {
+        //item.key;
+        localStorage.setItem("syncid", item.key.toString());
+        //localStorage.getItem("syncid")
+      }
+    };
+
   private _onClick() {
     this.setState({ isLoading: true });
     axios
@@ -217,31 +228,27 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
       );
   }
 
-  private _getData(syncId: string,) {
-   // this.setState({ isLoading: true });
+  private _getData(syncId: string) {
+     this.setState({ isLoading: true });
 
-    axios
-      .post(
-        apiUrl,
-        '{"SyncId":"'+ syncId +'","Page":1,"Size":20}'
-      )
-      .then(
-        (res) => {
-          debugger;
-          this.setState({ isLoading: false });
-          this.setState({
-            items: [],
-          });
-          this.setState({
-            items: res.data.Logs,
-          });
-          console.log(res);
-          console.log(res.data);
-        },
-        (error) => {
-          debugger;
-          console.log(error);
-        }
-      );
+    axios.post(apiUrl, '{"SyncId":"' + syncId + '","Page":1,"Size":20}').then(
+      (res) => {
+        debugger;
+        this.setState({ isLoading: false });
+        this.setState({
+          items: [],
+        });
+        this.setState({
+          items: res.data.Logs,
+        });
+        console.log(res);
+        console.log(res.data);
+      },
+      (error) => {
+        this.setState({ isLoading: false });
+        debugger;
+        console.log(error);
+      }
+    );
   }
 }
