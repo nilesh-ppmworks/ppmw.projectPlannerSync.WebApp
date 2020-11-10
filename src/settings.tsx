@@ -25,7 +25,7 @@ import {
 import axios from "axios";
 import {LeftNav} from "./navigation";
 
-const apiUrl = "https://ppmwprojplansync.azurewebsites.net/api/SaveTokenFn?FuncName=GetLogs&code=2BCbhDUhdyoOvDDErQcTCmKGhDJzUhYcVYjNaZS3jFvMA3E39om/Rg==";
+const apiUrl = "https://ppmwprojplansync.azurewebsites.net/api/SaveTokenFn?FuncName=CreateCustomFields&code=2BCbhDUhdyoOvDDErQcTCmKGhDJzUhYcVYjNaZS3jFvMA3E39om/Rg==";
 
 const exampleChildClass = mergeStyles({
   display: "block",
@@ -36,33 +36,21 @@ const exampleChildClass = mergeStyles({
   color: "rgb(100,100,100)"
 });
 
-export const LogDetails: React.FunctionComponent = () => {
+export const Settings: React.FunctionComponent = () => {
   return (
-    <div style={{padding:"20px 20px",height:"600px", backgroundColor:"rgb(237, 235, 233)"}}>
+    <div style={{padding:"20px 20px",height:"600px", width:"1050px", backgroundColor:"rgb(237, 235, 233)"}}>
           
-      <LogDetailsList />
+     <SettingsDetails />
     </div>
   );
 };
 
-interface ILogDetailsListItem {    
-  SyncId: string;
-  CorrelationId: string;
-  JobType: string;
-  PlanId:string;
-  ProjectId:string;
-  Status:number;
-  LogLevel:number;
-  Message: string;
-  Timestamp:string;
-}
 
-interface ILogDetailsListState {
-  items: ILogDetailsListItem[];
+interface ISettingsDetailsState {
   isLoading:boolean;
 }
 
-class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
+class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
   //private _allItems: IRegionListItem[];
   private _columns: IColumn[];
 
@@ -144,15 +132,13 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
       },
     ];
 
-    this.state = {
-      items: [], //this._allItems,
-
+    this.state = {     
       isLoading: false,
     };
   }
 
   public render(): JSX.Element {
-    const { items, isLoading } = this.state;
+    const { isLoading } = this.state;
 
     return (
       <Fabric style={{ maxHeight: "400px" }}>
@@ -161,25 +147,12 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
             size={SpinnerSize.large}
             className="spinnerLoaderClass"
           ></Spinner>
-        )}
-
-        
-        
-        
-        <DetailsList
-          compact={true}
-          items={items}
-          columns={this._columns}
-          setKey="set"
-          layoutMode={DetailsListLayoutMode.fixedColumns}
-          selectionMode={SelectionMode.none}
-          selectionPreservedOnEmptyClick={true}
-          ariaLabelForSelectionColumn="Toggle selection"
-          ariaLabelForSelectAllCheckbox="Toggle selection for all items"
-          checkButtonAriaLabel="Row checkbox"
-          //onItemInvoked={this._onItemInvoked}
-          isHeaderVisible={true}
-        />
+        )}       
+        <div>
+        < DefaultButton  onClick={this._onClick.bind(this)}>
+        Create Custom Fields
+          </ DefaultButton>
+          </div>
         
       </Fabric>
     );
@@ -187,56 +160,25 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
 
   componentDidMount() {
    // this.getSyncs();
-   var syncid = localStorage.getItem("syncid");
-    this._getData(syncid!); //"9B51F53E-0412-4200-90FF-6EE27B75C84C");
+    //this._getData("9B51F53E-0412-4200-90FF-6EE27B75C84C");
   }
-  
+ 
+
   private _onClick() {
     this.setState({ isLoading: true });
     axios
       .post(
         apiUrl,
-        '{"SyncId":"9b51f53e-0412-4200-90ff-6ee27b75c84c","Page":1,"Size":20}'
+        '{"syncId":"9b51f53e-0412-4200-90ff-6ee27b75c84c"}'
       )
       .then(
         (res) => {
           debugger;
           this.setState({
-            items: [],
+           //Add message
           });
-          this.setState({
-            items: res.data.Logs,
-          });
+          
           console.log(res);
-          console.log(res.data);
-        },
-        (error) => {
-          debugger;
-          console.log(error);
-        }
-      );
-  }
-
-  private _getData(syncId: string,) {
-   // this.setState({ isLoading: true });
-
-    axios
-      .post(
-        apiUrl,
-        '{"SyncId":"'+ syncId +'","Page":1,"Size":20}'
-      )
-      .then(
-        (res) => {
-          debugger;
-          this.setState({ isLoading: false });
-          this.setState({
-            items: [],
-          });
-          this.setState({
-            items: res.data.Logs,
-          });
-          console.log(res);
-          console.log(res.data);
         },
         (error) => {
           debugger;
@@ -245,3 +187,8 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
       );
   }
 }
+
+  
+
+
+
