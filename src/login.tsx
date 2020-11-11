@@ -7,7 +7,7 @@ import { Button, PrimaryButton } from "office-ui-fabric-react";
 //import { AppState } from "./appState";
 import axios from "axios";
 //const baseApiUrl = AppState.globals.apiBaseUrl;
-const apiUrl = "https://ppmwprojplansync.azurewebsites.net/api/SaveTokenFn?FuncName=GetLogs&code=2BCbhDUhdyoOvDDErQcTCmKGhDJzUhYcVYjNaZS3jFvMA3E39om/Rg==";
+const apiUrl = "https://uniqureprojectplannersync.azurewebsites.net/api/SaveTokenFn?FuncName=GetLogs&code=T4iu4CtEzxzaVYjMbfWygRLA529DhSC2UzO2M4K1v1pmLYgv7vjqAQ==";
 //const mdt_logo = require("./components/assets/mdt_logo.png");
 
 const config = {
