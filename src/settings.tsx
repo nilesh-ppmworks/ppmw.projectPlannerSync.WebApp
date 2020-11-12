@@ -27,7 +27,7 @@ import {
 import axios from "axios";
 import {LeftNav} from "./navigation";
 
-const apiUrl = "https://uniqureprojectplannersync.azurewebsites.net/api/SaveTokenFn?FuncName=CreateCustomFields&code=T4iu4CtEzxzaVYjMbfWygRLA529DhSC2UzO2M4K1v1pmLYgv7vjqAQ==";
+const apiUrl = "https://projectplannersyncazurefn.azurewebsites.net/api/SaveTokenFn?FuncName=CreateCustomFields&code=a1aveUiShlFaOFsDAW/NJJXFIQKeDMNU7LXatOZpAMExIrPY9nC/3g==";
 
 const exampleChildClass = mergeStyles({
   display: "block",
@@ -207,7 +207,7 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
   private _getData(userId: string) {
     this.setState({ isLoading: true });
 
-   axios.post("https://uniqureprojectplannersync.azurewebsites.net/api/SaveTokenFn?FuncName=GetSyncsByUserId&code=T4iu4CtEzxzaVYjMbfWygRLA529DhSC2UzO2M4K1v1pmLYgv7vjqAQ==", 
+   axios.post("https://projectplannersyncazurefn.azurewebsites.net/api/SaveTokenFn?FuncName=GetSyncsByUserId&code=a1aveUiShlFaOFsDAW/NJJXFIQKeDMNU7LXatOZpAMExIrPY9nC/3g==", 
     '{"userId":"' + userId + '"}').then(
      (res) => {
        debugger;

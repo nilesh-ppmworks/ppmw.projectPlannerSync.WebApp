@@ -25,7 +25,7 @@ import {
 import axios from "axios";
 import {LeftNav} from "./navigation";
 
-const apiUrl = "https://uniqureprojectplannersync.azurewebsites.net/api/SaveTokenFn?FuncName=GetLogs&code=T4iu4CtEzxzaVYjMbfWygRLA529DhSC2UzO2M4K1v1pmLYgv7vjqAQ==";
+const apiUrl = "https://projectplannersyncazurefn.azurewebsites.net/api/SaveTokenFn?FuncName=GetLogs&code=a1aveUiShlFaOFsDAW/NJJXFIQKeDMNU7LXatOZpAMExIrPY9nC/3g==";
 
 const exampleChildClass = mergeStyles({
   display: "block",
