@@ -175,7 +175,7 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
             style={{ width: 200 }}
             onChange={onChange}
             //text={this.state.newLastQuartersVal}
-            selectedKey={this.state.selectedSync}
+            //selectedKey={this.state.selectedSync}
           />
 
           <br></br>
@@ -235,7 +235,7 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
     axios
       .post(
         apiUrl,
-        '{"syncId":"9b51f53e-0412-4200-90ff-6ee27b75c84c"}'
+        '{"syncId":'+ localStorage.getItem("syncid") +'}'
       )
       .then(
         (res) => {

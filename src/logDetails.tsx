@@ -207,7 +207,7 @@ class LogDetailsList extends React.Component<{}, ILogDetailsListState> {
     axios
       .post(
         apiUrl,
-        '{"SyncId":"9b51f53e-0412-4200-90ff-6ee27b75c84c","Page":1,"Size":20}'
+        '{"SyncId":"'+localStorage.getItem("syncid")+ '","Page":1,"Size":20}'
       )
       .then(
         (res) => {
