@@ -170,7 +170,7 @@ class UserDetails extends React.Component<{}, IUserDetailsState> {
     axios
       .post(
         apiUrl,
-        '{"syncId":"9b51f53e-0412-4200-90ff-6ee27b75c84c"}'
+        '{"syncId":"'+ localStorage.getItem("syncid")+'"}'
       )
       .then(
         (res) => {

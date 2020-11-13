@@ -235,7 +235,7 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
     axios
       .post(
         apiUrl,
-        '{"syncId":'+ localStorage.getItem("syncid") +'}'
+        '{"syncId":"'+ localStorage.getItem("syncid") +'"}'
       )
       .then(
         (res) => {
