@@ -240,6 +240,7 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
       .then(
         (res) => {
           debugger;
+          this.setState({ isLoading: false });
           this.setState({
            //Add message
           });
@@ -247,6 +248,7 @@ class SettingsDetails extends React.Component<{}, ISettingsDetailsState> {
           console.log(res);
         },
         (error) => {
+          this.setState({ isLoading: false });
           debugger;
           console.log(error);
         }
